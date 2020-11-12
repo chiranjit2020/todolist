@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>To Do List</title>
+		<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="container">
+			
+			<header>
+				<h1 id="heading"></h1>
+			</header>
+			<form>
+				<div>
+					<input type="text" class="todo-input" placeholder="Add Your Work..." required="true">
+					<button type="submit" class="todo-button">
+						<i class='bx bxs-plus-circle'></i>
+					</button>
+				</div>					
+				<div class="select">
+					<select name="todos" class="filter-todo">
+						<option value="all">All</option>
+						<option value="completed">Completed</option>
+						<option value="uncompleted">Uncompleted</option>
+					</select>
+				</div>
+			</form>
+
+			<div class="todo-container">
+				<ul class="todo-list"></ul>
+			</div>
+			
+		</div>
+
+
+
+		<!-- Popup -->
+
+		<div class="popup">
+			<form id="popupForm">
+				<input type="text" placeholder="Write Your Name Here..." id="popup-input" required="true" maxlength="10">
+				<input type="submit" value="GO" id="popup-btn">					
+			</form>
+		</div>
+
+
+
+	<script src="js/app.js"></script>
+
+	<script>
+		const heading = document.getElementById("heading");
+		const popup = document.querySelector(".popup");
+		const popupInput = document.getElementById("popup-input");
+		const popupBtn = document.getElementById("popup-btn");
+
+		const message = document.getElementById("msg");
+
+
+			popupBtn.addEventListener("click", function(e){
+				e.preventDefault();
+
+				if(!popupInput.value == ''){
+					const userName = popupInput.value;
+					const capitalizeName = userName.charAt(0).toUpperCase() + userName.slice(1)
+					
+					heading.innerHTML = `${capitalizeName}'s Todo List`;
+					localStorage.setItem("FirstName", capitalizeName);
+					popup.style.display = 'none';					
+				}else{
+					//message.style.display = 'block';
+					popupInput.classList.add("errorPlaceholder");
+				}
+				
+			});	
+
+
+			if (localStorage.getItem("FirstName")) {
+
+				let localName = localStorage.getItem("FirstName");
+				popup.style.display = 'none';
+				heading.innerHTML = `${localName}'s Todo List`;
+			}
+
+
+	</script>
+	</body>
+</html>
